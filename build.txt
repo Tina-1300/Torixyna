@@ -1,0 +1,12 @@
+pour build ça library static (donc en .a)
+
+xmake --version
+https://xmake.io/#/getting_started
+
+a ce qui parait xmake et plus simple que cmake 
+
+et ou 
+
+cmake
+
+https://cmake.org/
