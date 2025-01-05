@@ -1,9 +1,5 @@
 {
     cmdlines = {
-        "xmake ",
-        "xmake f -c",
-        "xmake f --toolchain=mingw --sdk=C:/mingw64",
-        "xmake ",
         "xmake f -c",
         "xmake f --toolchain=mingw --sdk=C:/mingw64",
         "xmake f -m release",
@@ -61,6 +57,10 @@
         "xmake ",
         "xmake f -c",
         "xmake ",
+        "xmake f -c",
+        "xmake ",
+        [[xmake lua C:\Users\alexp\xmake\modules\private\utils\statistics.lua]],
+        [[xmake lua C:\Users\alexp\xmake\actions\build\cleaner.lua]],
         "xmake f -c",
         "xmake ",
         [[xmake lua C:\Users\alexp\xmake\modules\private\utils\statistics.lua]],

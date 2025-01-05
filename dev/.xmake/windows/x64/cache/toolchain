@@ -1,110 +1,110 @@
 {
-    go_arch_x64_plat_windows = {
-        __checked = true,
-        plat = "windows",
-        __global = true,
-        arch = "x64"
-    },
-    msvc_arch_x64_plat_windows = {
-        __checked = false,
-        plat = "windows",
-        __global = true,
-        arch = "x64"
+    tool_target_Torixyna_windows_x64_ar = {
+        toolchain_info = {
+            arch = "x64",
+            name = "mingw",
+            plat = "windows",
+            cachekey = "mingw_arch_x64_plat_windows"
+        },
+        toolname = "ar",
+        program = [[C:\mingw64\bin\ar]]
     },
     fpc_arch_x64_plat_windows = {
+        arch = "x64",
         __checked = true,
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
+    },
+    nim_arch_x64_plat_windows = {
+        arch = "x64",
+        __checked = false,
+        plat = "windows",
+        __global = true
+    },
+    rust_arch_x64_plat_windows = {
+        arch = "x64",
+        __checked = true,
+        plat = "windows",
+        __global = true
     },
     swift_arch_x64_plat_windows = {
+        arch = "x64",
         __checked = true,
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
     },
-    yasm_arch_x64_plat_windows = {
+    tool_target_Torixyna_windows_x64_cc = {
+        toolchain_info = {
+            arch = "x64",
+            name = "mingw",
+            plat = "windows",
+            cachekey = "mingw_arch_x64_plat_windows"
+        },
+        toolname = "gcc",
+        program = [[C:\mingw64\bin\x86_64-w64-mingw32-gcc]]
+    },
+    gfortran_arch_x64_plat_windows = {
+        arch = "x64",
         __checked = true,
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
+    },
+    tool_target_Torixyna_windows_x64_cxx = {
+        toolchain_info = {
+            cachekey = "mingw_arch_x64_plat_windows",
+            name = "mingw",
+            plat = "windows",
+            arch = "x64"
+        },
+        program = [[C:\mingw64\bin\x86_64-w64-mingw32-g++]],
+        toolname = "gxx"
     },
     mingw_arch_x64_plat_windows = {
         arch = "x64",
+        __checked = true,
+        plat = "windows",
+        mingw = [[C:\mingw64]],
+        __global = true,
         cross = "x86_64-w64-mingw32-",
-        bindir = [[C:\mingw64\bin]],
-        __checked = true,
-        plat = "windows",
-        __global = true,
-        mingw = [[C:\mingw64]]
-    },
-    nim_arch_x64_plat_windows = {
-        __checked = false,
-        plat = "windows",
-        __global = true,
-        arch = "x64"
-    },
-    nasm_arch_x64_plat_windows = {
-        __checked = true,
-        plat = "windows",
-        __global = true,
-        arch = "x64"
+        bindir = [[C:\mingw64\bin]]
     },
     cuda_arch_x64_plat_windows = {
+        arch = "x64",
         __checked = true,
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
     },
-    tool_target_Torixyna_windows_x64_ar = {
-        program = [[C:\mingw64\bin\ar]],
-        toolname = "ar",
-        toolchain_info = {
-            plat = "windows",
-            name = "mingw",
-            arch = "x64",
-            cachekey = "mingw_arch_x64_plat_windows"
-        }
+    yasm_arch_x64_plat_windows = {
+        arch = "x64",
+        __checked = true,
+        plat = "windows",
+        __global = true
     },
-    tool_target_Torixyna_windows_x64_cxx = {
-        program = [[C:\mingw64\bin\x86_64-w64-mingw32-g++]],
-        toolchain_info = {
-            plat = "windows",
-            name = "mingw",
-            cachekey = "mingw_arch_x64_plat_windows",
-            arch = "x64"
-        },
-        toolname = "gxx"
+    nasm_arch_x64_plat_windows = {
+        arch = "x64",
+        __checked = true,
+        plat = "windows",
+        __global = true
     },
     clang_arch_x64_plat_windows = {
+        arch = "x64",
         __checked = {
-            program = "clang",
-            name = "clang"
+            name = "clang",
+            program = "clang"
         },
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
     },
-    tool_target_Torixyna_windows_x64_cc = {
-        program = [[C:\mingw64\bin\x86_64-w64-mingw32-gcc]],
-        toolname = "gcc",
-        toolchain_info = {
-            plat = "windows",
-            name = "mingw",
-            arch = "x64",
-            cachekey = "mingw_arch_x64_plat_windows"
-        }
-    },
-    rust_arch_x64_plat_windows = {
+    go_arch_x64_plat_windows = {
+        arch = "x64",
         __checked = true,
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
     },
-    gfortran_arch_x64_plat_windows = {
-        __checked = true,
+    msvc_arch_x64_plat_windows = {
+        arch = "x64",
+        __checked = false,
         plat = "windows",
-        __global = true,
-        arch = "x64"
+        __global = true
     }
 }

@@ -10,8 +10,12 @@
     #include "Speaker/Speaker.hpp" // module : getion des speaker
 #endif
 
+#ifdef INCLUDE_REGISTRE
+    #include "Registre/Luna.hpp" // module : getion des registre
+#endif
 
-#if !defined(INCLUDE_PRIVILEGES) && !defined(INCLUDE_SPEAKER)
+#if !defined(INCLUDE_PRIVILEGES) && !defined(INCLUDE_SPEAKER) && !defined(INCLUDE_REGISTRE)
     #include "Privileges/PrivilegesManager.hpp"
     #include "Speaker/Speaker.hpp"
+    #include "Registre/Luna.hpp"
 #endif
