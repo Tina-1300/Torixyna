@@ -20,6 +20,12 @@ namespace Torixyna::Registre{
         DWORD TaillActuell = 0;
     };
 
+    struct Rust{
+        bool status; // si il et à true tout ses bien passé aucune error
+        const char* valueName; // valeur si ses un REG_SZ ou autre...
+        DWORD valueNameT; // valeur si ses un REG_SZ ou autre...
+    };
+
     class Luna{
         public:
             Luna(HKEY RootKey);  // Constructeur par défaut
@@ -35,6 +41,9 @@ namespace Torixyna::Registre{
             // et la taille actuelle que stock le registre (tout cela en Mo)
             // à vérifier si elle marche bien 
             INFO_TAILL GetSizeRegistry(INFO_TAILL& data);
+
+            // return la structure Rust cette fonction permet de savoir le type de valeur que stock une clé 
+            Rust GetRegisterTypeValue(HKEY RootKey, const wchar_t * Register, const wchar_t* valueName, Rust& data);
 
         private:
             HKEY m_RootKey; // Stocke la clé racine (par ex. HKEY_CURRENT_USER)
@@ -55,21 +64,7 @@ namespace Torixyna::Registre{
 
     };
 
-    // cette class permet de sauvgarder dans un fichier des partie du registre etc..
-    // https://learn.microsoft.com/fr-fr/windows/win32/sysinfo/registry-files
-    class LunaSave{
 
-    };
-
-    // Cette class permet de réécrire un fichier de sauvgard de registre dans les registre etc..
-    class LunaLoad{
-
-    };
-
-    // Cette class permet de ce connecter sur un registre d'un pc du réseaux
-    class LunaNetwork{
-
-    };
 
 
 };

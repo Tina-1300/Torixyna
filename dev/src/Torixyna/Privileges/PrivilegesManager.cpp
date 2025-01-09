@@ -120,6 +120,7 @@ namespace Torixyna::Privileges{
                     "Privileges Unknown"; // privileges inconnu 
         std::cout << resultat << "\n";
     };
-
+// return (8 == 8) ? si vrai : si faux;
+// 
 
 };
