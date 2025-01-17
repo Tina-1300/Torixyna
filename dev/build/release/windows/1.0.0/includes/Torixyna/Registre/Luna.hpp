@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <string>
 
-
 /*
 https://learn.microsoft.com/fr-fr/windows/win32/apiindex/windows-api-list
 
@@ -15,13 +14,12 @@ https://learn.microsoft.com/fr-fr/windows/win32/sysinfo/registry-files
 
 namespace Torixyna::Registre{
 
-    struct INFO_TAILL{
-        DWORD TaillMaximal = 0;
-        DWORD TaillActuell = 0;
+    struct RegistrySizeInfo {
+        DWORD maxSize = 0;    // Taille maximale du registre en Mo
+        DWORD currentSize = 0; // Taille actuelle du registre en Mo
     };
 
-    // Renomer la structure Rust en INFO_TYPE 
-    struct INFO_TYPE{
+    struct RegistryValueInfo {
         bool status; // si il et à true tout ses bien passé aucune error
         const char* valueName; // valeur si ses un REG_SZ ou autre...
         DWORD valueNameT; // valeur si ses un REG_SZ ou autre...
@@ -35,24 +33,29 @@ namespace Torixyna::Registre{
             // Ajout une clé de registre (return true si tout ses bien passé)
             bool AddRegistryKey(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value);
 
+            // Ajout une clé de registre dword (return true si tout ses bien passé)
+            bool AddRegistryKeyDWORD(const wchar_t * Register, const WCHAR * NameKey, DWORD Value);
+
+            // Ajoute une clé de registre BINARY (return true si tout ses bien passé)
+            bool AddRegistryKeyBINARY(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData);
+
+
             // suprime une clé de registre (return true si tout ses bien passé)
             bool DeleteRegistryKey(const wchar_t * Register, const WCHAR * NameKey);
 
             // Retourn un struct qui contient la taille maximal que le registre peut stocker 
             // et la taille actuelle que stock le registre (tout cela en Mo)
             // à vérifier si elle marche bien 
-            INFO_TAILL GetSizeRegistry(INFO_TAILL& data);
+            RegistrySizeInfo GetSizeRegistry(RegistrySizeInfo& data);
 
             // return la structure Rust cette fonction permet de savoir le type de valeur que stock une clé 
-            INFO_TYPE GetRegisterTypeValue(const wchar_t * Register, const wchar_t* valueName, INFO_TYPE& data);
+            RegistryValueInfo GetRegisterTypeValue(const wchar_t * Register, const wchar_t* valueName, RegistryValueInfo& data);
 
             /*
             faire une fonction pour vérifier qu'un registre ou une clé existe bien 
             pour énuméré tout les valeur des clé 
             pour énuméré tout les clé
-            pour modifier une clé ou sa valeur REG_SZ
-            pour ajouter un DWORD, BINARY
-            pour modifier un DWORD, BINARY
+            pour modifier un DWORD, BINARY, REG_SZ
             pour lire un DWORD, BINARY
             */
 

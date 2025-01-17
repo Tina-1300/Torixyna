@@ -4,21 +4,6 @@
 
 namespace Torixyna::Privileges{
 
-
-    // enum PrivilegeLevel{
-    //     System = 344,
-    //     Admin,
-    //     User,
-    //     Bas, 
-    //     Invite
-    // };
-    
-    // struct PrivilegeStatus{
-    //     PrivilegeLevel currentPrivilege;// return l'identifiant du privileges actuel si ses Admin ou user ou autre...
-    //     bool isSuccess; // return si il y a une error = false sinon return true
-    // };
-
-
     PrivilegeStatus PrivilegesManager::GetPrivilegeFromCurrentSession(PrivilegeStatus& dataPrivileges){
         HANDLE hToken = NULL;
         DWORD dwLengthNeeded = 0;
@@ -91,7 +76,7 @@ namespace Torixyna::Privileges{
             if (!ShellExecuteExW(&sei)){
                 DWORD error = GetLastError();
                 if (error == ERROR_CANCELLED){
-                    dataPrivileges.isSuccess = false; //error
+                    dataPrivileges.isSuccess = false; // error
                     return dataPrivileges;
                 }
                 dataPrivileges.isSuccess = false;
@@ -110,6 +95,7 @@ namespace Torixyna::Privileges{
     };  
 
 
+    // Cette fonction marche.
     void PrivilegesManager::DisplayPrivileges(PrivilegeStatus& data){
         std::string resultat;
         resultat =  (data.currentPrivilege == PrivilegeLevel::System) ? "System": // system
@@ -120,7 +106,6 @@ namespace Torixyna::Privileges{
                     "Privileges Unknown"; // privileges inconnu 
         std::cout << resultat << "\n";
     };
-// return (8 == 8) ? si vrai : si faux;
-// 
+
 
 };
