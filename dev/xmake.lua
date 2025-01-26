@@ -1,5 +1,6 @@
 -- xmake f -c
 -- xmake
+--xmake f -m release
 
 -- Définir le projet
 set_project("Torixyna")
@@ -22,7 +23,6 @@ add_files("src/**.cpp") -- Ajouter tous les fichiers source de manière récursi
 
 -- Répertoire de sortie pour la bibliothèque
 set_targetdir("build/release/windows/1.0.0/lib")
-
     -- Action après la compilation
     after_build(function (target)
         -- Copier tous les fichiers d'en-tête, y compris les sous-dossiers

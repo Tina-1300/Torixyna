@@ -1,4 +1,7 @@
 {
+    files = {
+        [[src\Torixyna\Privileges\PrivilegesManager.cpp]]
+    },
     depfiles_gcc = "PrivilegesManager.o: src\\Torixyna\\Privileges\\PrivilegesManager.cpp  src\\Torixyna\\Privileges\\../../../includes/Torixyna/Privileges/PrivilegesManager.hpp\
 ",
     values = {
@@ -8,8 +11,5 @@
             "-Iincludes",
             "-fexceptions"
         }
-    },
-    files = {
-        [[src\Torixyna\Privileges\PrivilegesManager.cpp]]
     }
 }

@@ -1,34 +1,21 @@
-<!-- mettre toutes les fichier du module à quoi il serve et on permet sois d'accéder à un fichier qui liste tout les class, méthode
-d'un fichier et on permet à l'utilisateur d'accéder à la doc du fichier. -->
+# Documentation du module : Privilege 
 
+Dans le Module Privilège nous avon :
 
+- Namespace Torixyna::Privileges : 
+    
+    - enum class : 
+        - PrivilegeLevel : Permet d'avoir un code pour chaque niveaux de privilège, ex : système, admin, etc...
 
+    - struct : 
+        - PrivilegeStatus : [pour plus de detaille...](https://www.google.com)
+    
+    - class : 
+        - PrivilegesManager : Gère les principale fonctionalité des privilège : élévation, récupération des droit actuel
+    
+    - Méthode Appartenant à la class PrivilegesManager : 
 
-
----
-
-### PrivilegesManager.hpp
-
-> [!WARNING]  
-> Attention ce module n'est pas terminer il y a encore des bug à corrigé notamment aux niveaux de l'élévation 
-> ce fichier appartenant aux modules Privilege.
-
-
-dans le namespace Torixyna::Privileges 
-
-**enum class PrivilegeLevel** : permet d'avoir un code assigner à un niveau de privilège 
-que ce soit système, user, ou autre...
-
-**struct PrivilegeStatus** : Cette structur permet de stocker des donné que les méthode de la class *PrivilegesManager* 
-vous retourneron
-
-**PrivilegesManager** : Cette class contient toutes les méthodes permettant l'utilisation facile des privilèges
-
-pour plus de detaille concernant ce fichier ayez l'obligence de lir la doc nous vous avons fournis des examples de code et
-bien tout detailler...
-
-##### Link to the Documentation
-
-- [PrivilegesManager](./PrivilegesManager.md)
-
----
+        - GetPrivilegeFromCurrentSession : Permet de récupéré les droit actuelle du programme
+        - ElevationOfPrivileges : Permet une élévation de privilège en fonction du grade demander par l'utilisateur... Warning il y a un bug cette méthode ne fonctionne pas bien
+        - DisplayPrivileges : Permet d'afficher les privilège, en console.
+        

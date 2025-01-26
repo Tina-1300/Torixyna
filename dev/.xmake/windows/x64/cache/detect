@@ -1,70 +1,70 @@
 {
-    find_program_mingw_arch_x64_plat_windows_checktoolcc = {
-        ["x86_64-w64-mingw32-gcc"] = [[C:\mingw64\bin\x86_64-w64-mingw32-gcc]]
+    find_program_mingw_arch_x64_plat_windows_checktoolar = {
+        ["C:\\mingw64\\bin\\ar"] = [[C:\mingw64\bin\ar]]
     },
-    find_programver = {
-        ["C:\\mingw64\\bin\\x86_64-w64-mingw32-g++"] = "14.2.0"
-    },
-    ["detect.sdks.find_mingw"] = {
-        mingw = {
-            sdkdir = [[C:\mingw64]],
-            cross = "x86_64-w64-mingw32-",
-            bindir = [[C:\mingw64\bin]]
-        }
+    ["lib.detect.has_flags"] = {
+        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-MMD -MF"] = true,
+        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-std=c++20"] = true,
+        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-fdiagnostics-color=always"] = true,
+        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-Wno-gnu-line-marker -Werror"] = true
     },
     find_program_mingw_arch_x64_plat_windows_checktoolcxx = {
         ["x86_64-w64-mingw32-g++"] = [[C:\mingw64\bin\x86_64-w64-mingw32-g++]]
     },
-    find_program_mingw_arch_x64_plat_windows_checktoolar = {
-        ["C:\\mingw64\\bin\\ar"] = [[C:\mingw64\bin\ar]]
-    },
     find_program = {
-        vswhere = false,
-        nim = false,
         ["vswhere.exe"] = false,
+        vswhere = false,
         ["C:\\mingw64\\bin\\x86_64-w64-mingw32-g++"] = [[C:\mingw64\bin\x86_64-w64-mingw32-g++]],
+        nim = false,
         clang = "clang"
     },
-    ["lib.detect.has_flags"] = {
-        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-fdiagnostics-color=always"] = true,
-        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-MMD -MF"] = true,
-        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-Wno-gnu-line-marker -Werror"] = true,
-        ["windows_x64_C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0_cxx_cxflags__-std=c++20"] = true
+    find_programver = {
+        ["C:\\mingw64\\bin\\x86_64-w64-mingw32-g++"] = "14.2.0"
     },
     ["detect.tools.gcc.has_cflags"] = {
         ["C:\\mingw64\\bin\\x86_64-w64-mingw32-g++_14.2.0"] = {
-            ["-print-search-dirs"] = true,
             ["-pie"] = true,
-            ["-dumpversion"] = true,
-            ["-S"] = true,
-            ["--version"] = true,
-            ["-Xassembler"] = true,
             ["-print-multiarch"] = true,
-            ["-c"] = true,
-            ["-pipe"] = true,
             ["--param"] = true,
-            ["--help"] = true,
             ["-dumpmachine"] = true,
+            ["--version"] = true,
             ["-o"] = true,
-            ["-save-temps"] = true,
-            ["-print-libgcc-file-name"] = true,
             ["-print-sysroot"] = true,
-            ["-print-multi-lib"] = true,
-            ["-print-sysroot-headers-suffix"] = true,
-            ["-no-canonical-prefixes"] = true,
-            ["--target-help"] = true,
-            ["-time"] = true,
-            ["-print-multi-os-directory"] = true,
-            ["-Xlinker"] = true,
-            ["-pass-exit-codes"] = true,
-            ["-B"] = true,
-            ["-E"] = true,
+            ["-pipe"] = true,
             ["-Xpreprocessor"] = true,
-            ["-v"] = true,
-            ["-print-multi-directory"] = true,
+            ["-print-libgcc-file-name"] = true,
+            ["-c"] = true,
+            ["-print-search-dirs"] = true,
+            ["-dumpversion"] = true,
+            ["-Xassembler"] = true,
+            ["-print-sysroot-headers-suffix"] = true,
+            ["-B"] = true,
+            ["-pass-exit-codes"] = true,
+            ["--help"] = true,
+            ["-no-canonical-prefixes"] = true,
+            ["-Xlinker"] = true,
+            ["-print-multi-lib"] = true,
+            ["-E"] = true,
+            ["-S"] = true,
             ["-shared"] = true,
-            ["-x"] = true,
-            ["-dumpspecs"] = true
+            ["-time"] = true,
+            ["-print-multi-directory"] = true,
+            ["-v"] = true,
+            ["-save-temps"] = true,
+            ["-dumpspecs"] = true,
+            ["-print-multi-os-directory"] = true,
+            ["--target-help"] = true,
+            ["-x"] = true
+        }
+    },
+    find_program_mingw_arch_x64_plat_windows_checktoolcc = {
+        ["x86_64-w64-mingw32-gcc"] = [[C:\mingw64\bin\x86_64-w64-mingw32-gcc]]
+    },
+    ["detect.sdks.find_mingw"] = {
+        mingw = {
+            bindir = [[C:\mingw64\bin]],
+            cross = "x86_64-w64-mingw32-",
+            sdkdir = [[C:\mingw64]]
         }
     }
 }

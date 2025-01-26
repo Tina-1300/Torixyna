@@ -1,20 +1,20 @@
 #pragma once 
-#include <iostream>
 #include <cmath>
 
-namespace Torixyna::Pythagore{
+namespace Torixyna::Math::Pythagore{
 
     // Calcul de l'hypoténuse à partir de deux côtés.
     template <typename T>
-    T Hypotenuse(T a, T b);
+    T Hypotenuse(T SideA, T SideB);
 
     // Vérifie si un triangle est rectangle en utilisant le théorème de Pythagore.
-    // OP : Hypoténuse supposée, PN et NO : les deux autres côtés.
+    // Hypotenuse : Hypoténuse supposée, SideA et SideB : les deux autres côtés.
     template <typename T> 
-    bool IsRectangle(T OP, T PN, T NO);
+    bool IsRectangle(T Hypotenuse, T SideA, T SideB);
 
     // Calcul d'un côté adjacent à partir de l'hypoténuse et d'un autre côté.
+    // via la reciproque 
     template <typename T>
-    T AdjacentSide(T hypotenuse, T otherSide);
+    T AdjacentSide(T Hypotenuse, T otherSide);
 
 };

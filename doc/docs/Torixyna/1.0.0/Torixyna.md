@@ -4,27 +4,71 @@
 
 ### 1. Privilege Management
 
-> [!WARNING]  
-> Elevating privileges is not fully functional yet and may cause bugs.
-> documentation not finished in maintenance
 
-privileges management module
+
+###### Name : Privilege
+###### Version : 1.0.0
+###### Author : Tina
+###### Ressources : None
+###### Nouveauté : [Nouveauter...](./Privileges/News.md)
+###### Descripiton : [pour en savoir plus](./Privileges/description.md)
+###### Documentation : [pour en savoir plus](./Privileges/index.md)
+###### Compilation : ````g++ -Os -s -O3 -o test.exe test.cpp -lTorixyna & color```` 
+
 
 ##### Link to the Documentation
 
 - [Privileges](./Privileges/index.md)
 
+
 ---
 
 ### 2. Speaker Management
 
+###### Name : Speaker
+###### Version : 1.0.0
+###### Author : Tina
+###### Ressources : None
+###### Nouveauté : [Nouveauter...](./Speaker/News.md)
+###### Descripiton : [pour en savoir plus](./Speaker/description.md)
+###### Documentation : [pour en savoir plus](./Speaker/index.md)
+###### Compilation : ````g++ -o test.exe test.cpp -lTorixyna -lole32 -lstdc++ -luuid & color```` 
+
+
+
 speaker management module 
+
+description : 
+
+ce module permet de géré les haut parleur de vôtre pc windows baisser le volume augmenter etc...
+
+Compilation : 
+
+pour compiler votre programme si vous utiliser ce module vous devrez faire : 
+...
 
 ##### Link to the Documentation
 
 - [Speaker](./Speaker/index.md)
 
+---
 
+### 3. Registry Management
+
+registry management module 
+
+description : 
+
+ce module permet de lire, écrire, suprimmer des clé de registre et bien d'autre...
+
+Compilation : 
+
+pour compiler votre programme si vous utiliser ce module vous devrez faire : 
+...
+
+##### Link to the Documentation
+
+- [Registry](./Registry/index.md)
 
 <!-- 
 
