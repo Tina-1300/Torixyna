@@ -21,7 +21,6 @@ namespace Torixyna::Registre{
 
     struct RegistryValueInfo {
         bool status; // si il et à true tout ses bien passé aucune error
-        const char* valueName; // valeur si ses un REG_SZ ou autre...
         DWORD valueNameT; // valeur si ses un REG_SZ ou autre...
     };
 
@@ -29,36 +28,37 @@ namespace Torixyna::Registre{
         public:
             Luna(HKEY RootKey);  // Constructeur par défaut
 
-
-            // Ajout une clé de registre (return true si tout ses bien passé)
-            bool AddRegistryKey(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value);
+            /*
+            Write 
+            Read
+            Delete
+            Update
+            */
+            // Ajout une clé de registre REG_SZ (return true si tout ses bien passé)
+            bool Write(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value);
 
             // Ajout une clé de registre dword (return true si tout ses bien passé)
-            bool AddRegistryKeyDWORD(const wchar_t * Register, const WCHAR * NameKey, DWORD Value);
+            bool Write(const wchar_t * Register, const WCHAR * NameKey, DWORD Value);
 
             // Ajoute une clé de registre BINARY (return true si tout ses bien passé)
-            bool AddRegistryKeyBINARY(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData);
+            bool Write(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData);
 
+            // Ajout une clé de registre Qword (return true si tout ses bien passé)
+            bool Write(const wchar_t * Register, const WCHAR * NameKey, unsigned __int64 value);
+
+            //écrire une REG_MULTI_SZ et une REG_EXPAND_SZ
 
             // suprime une clé de registre (return true si tout ses bien passé)
-            bool DeleteRegistryKey(const wchar_t * Register, const WCHAR * NameKey);
+            bool Delete(const wchar_t * Register, const WCHAR * NameKey);
 
             // Retourn un struct qui contient la taille maximal que le registre peut stocker 
             // et la taille actuelle que stock le registre (tout cela en Mo)
             // à vérifier si elle marche bien 
             RegistrySizeInfo GetSizeRegistry(RegistrySizeInfo& data);
 
+            // peut-être y mettre dans private cette fonction la pour que Read puisse l'utiliser 
             // return la structure Rust cette fonction permet de savoir le type de valeur que stock une clé 
             RegistryValueInfo GetRegisterTypeValue(const wchar_t * Register, const wchar_t* valueName, RegistryValueInfo& data);
-
-            /*
-            faire une fonction pour vérifier qu'un registre ou une clé existe bien 
-            pour énuméré tout les valeur des clé 
-            pour énuméré tout les clé
-            pour modifier un DWORD, BINARY, REG_SZ
-            pour lire un DWORD, BINARY
-            */
-
 
         private:
             HKEY m_RootKey; // Stocke la clé racine (par ex. HKEY_CURRENT_USER)
@@ -74,7 +74,7 @@ namespace Torixyna::Registre{
             If the parameter is set to false, the file extensions are hidden.
             The method returns true if everything was successful.
             */
-            bool SetsFileExtensionsVisibility(bool showExtensions);
+            static bool SetsFileExtensionsVisibility(bool showExtensions);
 
             // a tester 
             /*
@@ -83,7 +83,7 @@ namespace Torixyna::Registre{
             If set to false, hidden items are not displayed.
             The function returns false if there is an error, and true if there is no error.
             */
-            bool SetsShowItemsHide(bool Status);
+            static bool SetsShowItemsHide(bool Status);
 
             /*
             Sets the status of checkboxes.
@@ -91,14 +91,14 @@ namespace Torixyna::Registre{
             Deactivates checkboxes if the 'Status' parameter is set to false.
             This function returns true if the operation is successful.
             */
-            bool SetsTheStatusOfCheckboxes(bool Status);
+            static bool SetsTheStatusOfCheckboxes(bool Status);
 
             /*
             Function to set the wallpaper
             This function takes the image path as a parameter.
             It returns false if there is an error and true if everything goes well.
             */
-            bool SetWallpaper(const std::wstring& imagePath);
+            static bool SetWallpaper(const std::wstring& imagePath);
 
 
 

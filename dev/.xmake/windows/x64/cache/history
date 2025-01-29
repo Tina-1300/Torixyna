@@ -1,9 +1,0 @@
-{
-    cmdlines = {
-        "xmake f -m release",
-        "xmake f -c",
-        "xmake ",
-        [[xmake lua C:\Users\alexp\xmake\modules\private\utils\statistics.lua]],
-        [[xmake lua C:\Users\alexp\xmake\actions\build\cleaner.lua]]
-    }
-}

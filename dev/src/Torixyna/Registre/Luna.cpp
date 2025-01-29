@@ -7,7 +7,7 @@ namespace Torixyna::Registre{
     // Constructeur surchargé : permet de passer une clé racine spécifique
     Luna::Luna(HKEY RootKey) : m_RootKey(RootKey) {}
 
-    bool Luna::AddRegistryKey(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value){
+    bool Luna::Write(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value){
         HKEY hKey;
         LONG result = RegOpenKeyW(m_RootKey, Register, &hKey);
 
@@ -25,7 +25,7 @@ namespace Torixyna::Registre{
         return true;
     };
 
-    bool Luna::AddRegistryKeyDWORD(const wchar_t * Register, const WCHAR * NameKey, DWORD Value){
+    bool Luna::Write(const wchar_t * Register, const WCHAR * NameKey, DWORD Value){
         HKEY hKey;
         LONG result = RegOpenKeyW(m_RootKey, Register, &hKey);
 
@@ -43,7 +43,7 @@ namespace Torixyna::Registre{
         return true;
     };
 
-    bool Luna::AddRegistryKeyBINARY(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData){
+    bool Luna::Write(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData){
         HKEY hKey;
         LONG result = RegOpenKeyW(m_RootKey, Register, &hKey);
 
@@ -61,7 +61,25 @@ namespace Torixyna::Registre{
         return true;
     };
 
-    bool Luna::DeleteRegistryKey(const wchar_t * Register, const WCHAR * NameKey){
+    bool Luna::Write(const wchar_t * Register, const WCHAR * NameKey, unsigned __int64 value){
+        HKEY hKey;
+        LONG result = RegOpenKeyW(m_RootKey, Register, &hKey);
+
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+
+        result = RegSetValueExW(hKey, NameKey, 0, REG_QWORD, reinterpret_cast<const BYTE*>(&value), sizeof(value));
+        RegCloseKey(hKey);
+
+        if (result != ERROR_SUCCESS){
+            return false; 
+        }
+        return true;
+    };
+
+
+    bool Luna::Delete(const wchar_t * Register, const WCHAR * NameKey){
         HKEY hKey;
         LONG result = RegOpenKeyW(m_RootKey, Register, &hKey);
         if (result != ERROR_SUCCESS){
@@ -100,7 +118,6 @@ namespace Torixyna::Registre{
             return data;
         }
         data.status = true;
-        data.valueName = (dataType == REG_SZ) ? "REG_SZ": (dataType == REG_BINARY) ? "REG_BINARY": (dataType == REG_DWORD) ? "REG_DWORD": (dataType == REG_QWORD) ? "REG_QWORD": (dataType == REG_MULTI_SZ) ? "REG_MULTI_SZ": (dataType == REG_LINK) ? "REG_LINK": (dataType == REG_EXPAND_SZ) ? "REG_EXPAND_SZ": (dataType == REG_NONE) ? "REG_NONE": "Error";
         data.valueNameT = (dataType == REG_SZ) ? REG_SZ: (dataType == REG_BINARY) ? REG_BINARY: (dataType == REG_DWORD) ? REG_DWORD: (dataType == REG_QWORD) ? REG_QWORD: (dataType == REG_MULTI_SZ) ? REG_MULTI_SZ: (dataType == REG_LINK) ? REG_LINK: (dataType == REG_EXPAND_SZ) ? REG_EXPAND_SZ: (dataType == REG_NONE) ? REG_NONE: -808;
         RegCloseKey(keyHandle);
         return data;
