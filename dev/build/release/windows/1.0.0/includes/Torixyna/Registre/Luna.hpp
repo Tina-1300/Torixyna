@@ -24,11 +24,6 @@ namespace Torixyna::Registre{
         DWORD valueNameT; // valeur si ses un REG_SZ ou autre...
     };
 
-    struct RegistryRead{
-        std::string value_str; // valeur stocker
-        DWORD value_dword; // valeur stocker 
-    };
-
     class Luna{
         public:
             Luna(HKEY RootKey);  // Constructeur par défaut
@@ -53,11 +48,21 @@ namespace Torixyna::Registre{
 
             //écrire une REG_MULTI_SZ et une REG_EXPAND_SZ
 
+
+            // Lecture du type DWORD (Return true si tout ses bien passé)
+            bool Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result);
+
+            // Lecture du type QWORD (Return true si tout ses bien passé)
+            bool Read(const wchar_t* registerPath, const wchar_t* nameKey, ULONGLONG& result);
+
+            // Lecture du type Reg_SZ (Return true si tout ses bien passé)
+            bool Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& result);
+            
+            // Lire Binary et REG_MULTI_SZ et REG_EXPAND_SZ
+
+            
             // suprime une clé de registre (return true si tout ses bien passé)
             bool Delete(const wchar_t * Register, const WCHAR * NameKey);
-
-            // li la valeur stocker dans une clé de registre registre 
-            //RegistryRead Read(const wchar_t * Register, const WCHAR * NameKey);
 
             // Retourn un struct qui contient la taille maximal que le registre peut stocker 
             // et la taille actuelle que stock le registre (tout cela en Mo)

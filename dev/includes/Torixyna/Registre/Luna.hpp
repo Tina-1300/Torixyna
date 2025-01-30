@@ -48,6 +48,21 @@ namespace Torixyna::Registre{
 
             //écrire une REG_MULTI_SZ et une REG_EXPAND_SZ
 
+
+            // Lecture du type DWORD (Return true si tout ses bien passé)
+            bool Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result);
+
+            // Lecture du type QWORD (Return true si tout ses bien passé)
+            bool Read(const wchar_t* registerPath, const wchar_t* nameKey, ULONGLONG& result);
+
+            // Lecture du type REG_SZ (Return true si tout ses bien passé)
+            bool Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& result);
+            
+            // Lire Binary et REG_MULTI_SZ et REG_EXPAND_SZ
+
+
+            // Update de Binary, REG_MULTI_SZ, REG_EXPAND_SZ, QWORD, DWORD, REG_SZ,
+            
             // suprime une clé de registre (return true si tout ses bien passé)
             bool Delete(const wchar_t * Register, const WCHAR * NameKey);
 

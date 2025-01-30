@@ -1,105 +1,83 @@
 #include <windows.h>
 #include <iostream>
 
-
 // g++ -Os -s -g -o m.exe m.cpp & color
-//https://doc.ubuntu-fr.org/gdb
 
-struct ReadRegister{
-    BYTE value; // valeur de la clé stocker dans les registre
-    bool status; // Si elle et à true aucune error c'est passé
+bool Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result) {
+    HKEY hKey;
+    LONG status = RegOpenKeyW(HKEY_CURRENT_USER, registerPath, &hKey);
+    
+    if (status != ERROR_SUCCESS) return false;
+
+    DWORD dataSize = sizeof(DWORD);
+    status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, reinterpret_cast<LPBYTE>(&result), &dataSize);
+
+    RegCloseKey(hKey);
+    return status == ERROR_SUCCESS;
 };
 
-// BUG n'affiche pas les valeur binaire 
-ReadRegister ReadRegistryByte(const wchar_t * Register, const wchar_t * NameKey, ReadRegister& data){
-    HKEY keyHandle;
-    LONG result = RegOpenKeyExW(HKEY_CURRENT_USER, Register, 0, KEY_QUERY_VALUE, &keyHandle);
-    
-    if(result != ERROR_SUCCESS){
-        data.status = false;
-        return data;
+// Ajout du type QWORD (64 bits)
+bool Read(const wchar_t* registerPath, const wchar_t* nameKey, ULONGLONG& result) {
+    HKEY hKey;
+    LONG status = RegOpenKeyW(HKEY_CURRENT_USER, registerPath, &hKey);
+
+    if (status != ERROR_SUCCESS){
+        return false;
     }
 
-    BYTE  ValueMSG;
-    DWORD  ptrValue = sizeof(ValueMSG);
+    DWORD dataSize = sizeof(ULONGLONG);
+    status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, reinterpret_cast<LPBYTE>(&result), &dataSize);
 
-    result = RegQueryValueExW(keyHandle, NameKey, NULL, NULL, &ValueMSG, &ptrValue);
-
-    if(result != ERROR_SUCCESS){
-        data.status = false;
-        RegCloseKey(keyHandle);
-        return data;
-    }    
-
-    data.status = true;
-    data.value = ValueMSG;
-
-    RegCloseKey(keyHandle);
-
-    return data;
+    RegCloseKey(hKey);
+    return status == ERROR_SUCCESS;
 };
+
+
+// Lectur du type REG_SZ
+bool Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& result) {
+    HKEY hKey;
+    LONG status = RegOpenKeyW(HKEY_CURRENT_USER, registerPath, &hKey);
+
+    if (status != ERROR_SUCCESS){
+        return false;
+    }
+
+    DWORD dataSize = 0;
+    status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, nullptr, &dataSize);
+
+    if (status != ERROR_SUCCESS){
+        RegCloseKey(hKey);
+        return false;
+    }
+
+    wchar_t* buffer = new wchar_t[dataSize / sizeof(wchar_t)];
+
+    status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, reinterpret_cast<BYTE*>(buffer), &dataSize);
+
+    if (status == ERROR_SUCCESS){
+        result.assign(buffer);
+    }
+
+    delete[] buffer;
+    RegCloseKey(hKey);
+    return status == ERROR_SUCCESS;
+};
+
+// Lecture d'un Bynary
 
 
 
 int main(){
 
     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-    const wchar_t* keyName = L"MySetting";
-
-    ReadRegister  v;
-    ReadRegistryByte(registryPath, keyName, v);
-    std::cout << &v << "\n";
+    const wchar_t* keyName = L"OneDrive";
+    std::wstring value;
+    if (Read(registryPath, keyName, value)){
+        std::wcout << L"wstring Value : " << value << "\n";
+    }else{
+        std::wcout << L"ERROR" << "\n";
+    }
 
 
     return 0;
 };
-
-/*
-    bool AddRegistryKeyDWORD(const wchar_t * Register, const WCHAR * NameKey, DWORD Value){
-        HKEY hKey;
-        LONG result = RegOpenKeyW(HKEY_CURRENT_USER, Register, &hKey);
-
-        if (result != ERROR_SUCCESS){
-            return false;
-        }
-
-        DWORD ValueSize = sizeof(DWORD);
-        result = RegSetValueExW(hKey, NameKey, 0, REG_DWORD, (const BYTE*)&Value, ValueSize); 
-        RegCloseKey(hKey);
-
-        if (result != ERROR_SUCCESS){
-            return false; 
-        }
-        return true;
-    };
-
-    const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-    const wchar_t* keyName = L"MySetting";
-    DWORD value = 12345;
-    AddRegistryKeyDWORD(registryPath, keyName, value);
-
-
-    
-    bool AddRegistryKeyBINARY(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData){
-        HKEY hKey;
-        LONG result = RegOpenKeyW(HKEY_CURRENT_USER, Register, &hKey);
-
-        if (result != ERROR_SUCCESS){
-            return false;
-        }
-
-        DWORD dataSize = sizeof(BinaryData);
-        result = RegSetValueExW(hKey, NameKey, 0, REG_BINARY, BinaryData, dataSize); 
-        RegCloseKey(hKey);
-
-        if (result != ERROR_SUCCESS){
-            return false; 
-        }
-        return true;
-    };
-
-    const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-    const wchar_t* keyName = L"MySetting";
-    BYTE binaryData[] = { 0x01, 0x02, 0x03, 0x04 };
-    AddRegistryKeyBINARY(registryPath, keyName, binaryData);
-*/

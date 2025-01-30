@@ -78,6 +78,69 @@ namespace Torixyna::Registre{
         return true;
     };
 
+    // ---------------------- Read ---------------------------------
+    
+    bool Luna::Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result){
+        HKEY hKey;
+        LONG status = RegOpenKeyW(m_RootKey, registerPath, &hKey);
+        
+        if (status != ERROR_SUCCESS){
+            return false;
+        }
+
+        DWORD dataSize = sizeof(DWORD);
+        status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, reinterpret_cast<LPBYTE>(&result), &dataSize);
+
+        RegCloseKey(hKey);
+        return status == ERROR_SUCCESS;
+    };
+    
+    bool Luna::Read(const wchar_t* registerPath, const wchar_t* nameKey, ULONGLONG& result){
+        HKEY hKey;
+        LONG status = RegOpenKeyW(m_RootKey, registerPath, &hKey);
+
+        if (status != ERROR_SUCCESS){
+            return false;
+        }
+
+        DWORD dataSize = sizeof(ULONGLONG);
+        status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, reinterpret_cast<LPBYTE>(&result), &dataSize);
+
+        RegCloseKey(hKey);
+        return status == ERROR_SUCCESS;
+    };
+
+    bool Luna::Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& result){
+        HKEY hKey;
+        LONG status = RegOpenKeyW(m_RootKey, registerPath, &hKey);
+
+        if (status != ERROR_SUCCESS){
+            return false;
+        }
+
+        DWORD dataSize = 0;
+        status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, nullptr, &dataSize);
+
+        if (status != ERROR_SUCCESS){
+            RegCloseKey(hKey);
+            return false;
+        }
+
+        wchar_t* buffer = new wchar_t[dataSize / sizeof(wchar_t)];
+
+        status = RegQueryValueExW(hKey, nameKey, nullptr, nullptr, reinterpret_cast<BYTE*>(buffer), &dataSize);
+
+        if (status == ERROR_SUCCESS){
+            result.assign(buffer);
+        }
+
+        delete[] buffer;
+        RegCloseKey(hKey);
+        return status == ERROR_SUCCESS;
+    };
+
+    //-----------------------------------------------------------------
+
 
     bool Luna::Delete(const wchar_t * Register, const WCHAR * NameKey){
         HKEY hKey;
