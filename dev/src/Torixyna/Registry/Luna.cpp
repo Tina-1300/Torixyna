@@ -1,11 +1,8 @@
-#include "../../../includes/Torixyna/Registre/Luna.hpp"
+#include "../../../includes/Torixyna/Registry/Luna.hpp"
 
-namespace Torixyna::Registre{
+namespace Torixyna::Registry{
 
     // ---------------------------- Luna -----------------------------------------
-
-    // Constructeur surchargé : permet de passer une clé racine spécifique
-    Luna::Luna(HKEY RootKey) : m_RootKey(RootKey) {}
 
     bool Luna::Write(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value){
         HKEY hKey;
@@ -261,8 +258,7 @@ namespace Torixyna::Registre{
 
     };
 
-    //-----------------------------------------------------------------
-
+    // ---------------------- Delete ---------------------------------
 
     bool Luna::Delete(const wchar_t * Register, const WCHAR * NameKey){
         HKEY hKey;
@@ -279,39 +275,56 @@ namespace Torixyna::Registre{
         return true;
     };
 
-    
-    RegistrySizeInfo Luna::GetSizeRegistry(RegistrySizeInfo& data){
+    //------------------------------------------------------------------------------------------------
+
+    //-------------------------------------- LunaInfo ------------------------------------------------
+
+    bool LunaInfo::GetSizeRegistry(RegistrySizeInfo& data){
         DWORD T_MAX, T_ACTUELL;
-        GetSystemRegistryQuota(&T_MAX, &T_ACTUELL);
-        data.maxSize, data.currentSize = T_MAX / (1024*1024), T_ACTUELL / (1024*1024);
-        return data;
+        if (!GetSystemRegistryQuota(&T_MAX, &T_ACTUELL)){
+            return false; // Failed to retrieve information
+        }
+        data.maxSize = T_MAX / (1024 * 1024);
+        data.currentSize = T_ACTUELL / (1024 * 1024);
+        return true; 
     };
 
-
-    RegistryValueInfo Luna::GetRegisterTypeValue( const wchar_t * Register, const wchar_t* valueName, RegistryValueInfo& data){
+    bool LunaInfo::GetRegisterTypeValue(const wchar_t * Register, const wchar_t* valueName, RegistryValueInfo& data){
         HKEY keyHandle;
         DWORD dataType = 0;
+    
         LONG result = RegOpenKeyExW(m_RootKey, Register, 0, KEY_QUERY_VALUE, &keyHandle);
-        if(result != ERROR_SUCCESS){
-            data.status = false;
-            return data;
+        if (result != ERROR_SUCCESS){
+            return false;
         }
+    
+        // Get the type of the value
         result = RegQueryValueExW(keyHandle, valueName, NULL, &dataType, NULL, NULL);
         if (result != ERROR_SUCCESS){
-            data.status = false;
             RegCloseKey(keyHandle);
-            return data;
+            return false;
         }
-        data.status = true;
-        data.valueNameT = (dataType == REG_SZ) ? REG_SZ: (dataType == REG_BINARY) ? REG_BINARY: (dataType == REG_DWORD) ? REG_DWORD: (dataType == REG_QWORD) ? REG_QWORD: (dataType == REG_MULTI_SZ) ? REG_MULTI_SZ: (dataType == REG_LINK) ? REG_LINK: (dataType == REG_EXPAND_SZ) ? REG_EXPAND_SZ: (dataType == REG_NONE) ? REG_NONE: -808;
+    
         RegCloseKey(keyHandle);
-        return data;
-    };
+    
+        switch (dataType){
+            case REG_SZ: data.valueNameT = REG_SZ; break;
+            case REG_BINARY: data.valueNameT = REG_BINARY; break;
+            case REG_DWORD: data.valueNameT = REG_DWORD; break;
+            case REG_QWORD: data.valueNameT = REG_QWORD; break;
+            case REG_MULTI_SZ: data.valueNameT = REG_MULTI_SZ; break;
+            case REG_LINK: data.valueNameT = REG_LINK; break;
+            case REG_EXPAND_SZ: data.valueNameT = REG_EXPAND_SZ; break;
+            case REG_NONE: data.valueNameT = REG_NONE; break;
+            default: data.valueNameT = -808; break; // Custom error code (can't find the type of the value)
+        }
 
+        return true;
+    };
+    
     //------------------------------------------------------------------------------------------------
 
     //--------------------------------- LunaConfig ---------------------------------------------------
-
 
     bool LunaConfig::SetsFileExtensionsVisibility(bool showExtensions){
         HKEY hKey;
@@ -329,7 +342,7 @@ namespace Torixyna::Registre{
             return false; 
         }
         
-        DWORD value = showExtensions ? 0 : 1;  // 0 = afficher, 1 = masquer
+        DWORD value = showExtensions ? 0 : 1;  // 0 = show, 1 = hide
         result = RegSetValueExW(hKey, L"HideFileExt", 0, REG_DWORD, (const BYTE*)&value, sizeof(value));
 
         if(result != ERROR_SUCCESS){
@@ -357,7 +370,7 @@ namespace Torixyna::Registre{
             return false; 
         }
         
-        DWORD value = Status ? 1 : 2;  // 1 = afficher, 2 = masquer
+        DWORD value = Status ? 1 : 2;  // 1 = show, 2 = hide
         result = RegSetValueExW(hKey, L"Hidden", 0, REG_DWORD, (const BYTE*)&value, sizeof(value));
 
         if(result != ERROR_SUCCESS){
@@ -368,7 +381,6 @@ namespace Torixyna::Registre{
         RegCloseKey(hKey);
         return true;
     };
-
 
     bool LunaConfig::SetsTheStatusOfCheckboxes(bool Status){
         HKEY hKey;
@@ -386,7 +398,7 @@ namespace Torixyna::Registre{
             return false; 
         }
         
-        DWORD value = Status ? 1 : 0;  // 1 = Activer, 0 = Désactiver
+        DWORD value = Status ? 1 : 0;  // 1 = Enable, 0 = Disable
         result = RegSetValueExW(hKey, L"AutoCheckSelect", 0, REG_DWORD, (const BYTE*)&value, sizeof(value));
 
         if(result != ERROR_SUCCESS){
@@ -428,7 +440,7 @@ namespace Torixyna::Registre{
             return false;
         }
 
-        // définit si le fond d'écran doit être tuiler (0 : Non, 1 : Oui)
+        // set whether the wallpaper should be tiled (0: No, 1: Yes)
         const wchar_t* tileWallpaper = L"0";  // 0 : Pas de carrelage
         result = RegSetValueExW(hKey, L"TileWallpaper", 0, REG_SZ, (const BYTE*)tileWallpaper, (wcslen(tileWallpaper) + 1) * sizeof(wchar_t));
         if (result != ERROR_SUCCESS){
@@ -446,11 +458,6 @@ namespace Torixyna::Registre{
         }
     };
 
-
-
-
-
     //------------------------------------------------------------------------------------------------
-
 
 };

@@ -8,14 +8,15 @@
 <br>
 
 
-## Présentation : 
+## Overview:
 
-Torixyna est une bibliothèque innovante conçue pour simplifier et optimiser le développement d'applications sous Windows.
-Son objectif principal est de réduire la quantité de code nécessaire pour accomplir des tâches complexes telles que la gestion des haut-parleurs, des registres, des privilèges, et bien plus encore.
+Torixyna is an innovative library designed to simplify and optimize the development of applications on Windows.
+Its main goal is to reduce the amount of code needed to accomplish complex tasks such as managing speakers, registries, privileges, and much more...
 
-Torixyna est hautement modulaire : vous devez spécifier des directives de préprocesseur pour inclure un module particulier dans votre projet. Sans cela, le module ne sera pas intégré.
+Torixyna is highly modular: you must specify preprocessor directives to include a particular module in your project. Without this, the module will not be integrated.
 
-Ce fonctionnement évite que des modules inutilisés soient ajoutés au programme final. À terme, avec l'ajout de nombreux modules supplémentaires, cette approche garantit que même les projets professionnels restent légers et efficaces, sans générer d'exécutables gigantesques. Torixyna permet ainsi aux développeurs de gagner un temps précieux tout
+This approach prevents unused modules from being added to the final program. In the long term, with the addition of many more modules, this method ensures that even professional projects remain lightweight and efficient, without generating gigantic executables. Torixyna thus allows developers to save valuable time while ensuring their applications stay optimized.
+
 
 
 
@@ -30,8 +31,7 @@ Ce fonctionnement évite que des modules inutilisés soient ajoutés au programm
 
 ## Documentation : 
 
-[Modules](./Torixyna/1.0.0/Torixyna.md) : Cette section fournit un aperçu de tous les modules disponibles, accompagnée d’une description détaillée du module et d’une documentation spécifique pour chaque module.
-
+[Modules](./Torixyna/Torixyna.md) : This section provides an overview of all the available modules, along with a detailed description of each module and specific documentation for each one.
 
 
 
@@ -53,7 +53,7 @@ Ce fonctionnement évite que des modules inutilisés soient ajoutés au programm
 ## Information
 
 - **Author** : Tina
-- **Date** : 26/01/2025
+- **Date** : 25/02/2025
 - **Version** : 1.0.0
 - **Copyright** : 2025 Tina - All rights reserved
 

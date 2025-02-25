@@ -1,5 +1,6 @@
 #define INCLUDE_REGISTRE
 #include <iostream>
+#include <iomanip>
 #include <Torixyna/Torixyna.hpp>
 
 // g++ -Os -s -o test.exe test.cpp -lTorixyna & color
@@ -19,20 +20,20 @@ void TestWriteDwordRegistry(){
     }
 };
 
-// void TestWriteStringRegistry(){
-//     Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
-//     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-//     const wchar_t* keyName = L"test";
-//     const wchar_t* value = L"Alex";
+void TestWriteStringRegistry(){
+    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+    const wchar_t* keyName = L"test";
+    const wchar_t* value = L"Alex";
 
-//     if(luna.Write(registryPath, keyName, value) == true){
-//         std::cout << "La valeur a bien ete ecrite" << "\n";
-//         std::cin.get();
-//     }else{
-//         std::cerr << "Error" << "\n";
-//         std::cin.get();
-//     }
-// };
+    if(luna.Write(registryPath, keyName, value) == true){
+        std::cout << "La valeur a bien ete ecrite" << "\n";
+        std::cin.get();
+    }else{
+        std::cerr << "Error" << "\n"; 
+        std::cin.get();
+    }
+};
 
 void TestWriteBynaryRegistry(){
     Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
@@ -65,35 +66,63 @@ void TestWriteQword(){
 };
 
 
-//void TestDeleteRegistry(){
-//     Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
-//     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-//     const wchar_t* keyName = L"test";
-
-//     if(luna.Delete(registryPath, keyName)){
-//         std::cout << "La cle a bien été suprimmer" << "\n";
-//         std::cin.get();
-//     }else{
-//         std::cerr << "Error" << "\n";
-//         std::cin.get();
-//     }
-// };
-
-// à tester : 
-
-// Problème affiche pas les bon truc regarder ce qu'il ne va pas dans le code 
-void TestRead_BINARY(){
+void TestWrite_REG_MULTI_SZ(){
     Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
 
-    std::vector<BYTE> binaryData;
-    if (luna.Read(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"test", binaryData)){
-        // valeur lue avec sucès 
-        for (int i = 0; i < binaryData.size(); i++){
-            std::wcout << binaryData.at(i) << "\n";
-        }
-        
+    std::vector<std::wstring> values = {L"Valeur1", L"Valeur2", L"Valeur3"};
+    if (luna.Write( L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 
+        L"MaValeurMultiSZ", values)){
+        std::wcout << L"Valeur écrite avec succès !" << "\n";
     }else{
-        std::wcout << L"Échec de la lecture de la valeur binaire." << "\n";
+        std::wcout << L"Échec de l'écriture de la valeur." << "\n";
+    }
+};
+
+void TestWrite_REG_EXPAND_SZ(){
+    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+
+    if (luna.Write(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MaValeurExpandSZ", L"%SystemRoot%\\System32")){
+        std::wcout << L"Valeur REG_EXPAND_SZ écrite avec succès !" << "\n";
+    } else {
+        std::wcout << L"Échec de l'écriture de la valeur REG_EXPAND_SZ." << "\n";
+    }
+};
+
+
+
+
+// Ajouter Read à la doc + delete 
+
+void TestDeleteRegistry(){
+     Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+     const wchar_t* keyName = L"test";
+
+     if(luna.Delete(registryPath, keyName)){
+         std::cout << "La cle a bien été suprimmer" << "\n";
+         std::cin.get();
+     }else{
+         std::cerr << "Error" << "\n";
+         std::cin.get();
+    }
+};
+
+// à tester : (tout marche) 
+
+void TestRead_BINARY(){
+    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+    const wchar_t* keyName = L"test";
+
+    std::vector<BYTE> binaryData;
+    if (luna.Read(registryPath, keyName, binaryData)){
+        std::wcout << L"Valeur binaire lue : ";
+        for (size_t i = 0; i < binaryData.size(); i++){
+            std::wcout << std::hex << std::setw(2) << std::setfill(L'0') << (int)binaryData[i] << L" ";
+        }
+        std::wcout << std::endl;
+    }else{
+        std::wcout << L"Échec de la lecture de la valeur binaire." << std::endl;
     }
 };
 
@@ -124,27 +153,6 @@ void TestRead_REG_EXPAND_SZ(){
 };
 
 
-void TestWrite_REG_MULTI_SZ(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
-
-    std::vector<std::wstring> values = {L"Valeur1", L"Valeur2", L"Valeur3"};
-    if (luna.Write( L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 
-        L"MaValeurMultiSZ", values)){
-        std::wcout << L"Valeur écrite avec succès !" << "\n";
-    }else{
-        std::wcout << L"Échec de l'écriture de la valeur." << "\n";
-    }
-};
-
-void TestWrite_REG_EXPAND_SZ(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
-
-    if (luna.Write(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MaValeurExpandSZ", L"%SystemRoot%\\System32")){
-        std::wcout << L"Valeur REG_EXPAND_SZ écrite avec succès !" << "\n";
-    } else {
-        std::wcout << L"Échec de l'écriture de la valeur REG_EXPAND_SZ." << "\n";
-    }
-};
 
 int main(){
     SetConsoleOutputCP(CP_UTF8);

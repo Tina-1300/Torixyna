@@ -7,7 +7,7 @@
     #endif
 
     #ifdef INCLUDE_REGISTRE
-        #include "Registre/Luna.hpp" // module : getion des registre
+        #include "Registry/Luna.hpp" // module : getion des registre
     #endif
 
 

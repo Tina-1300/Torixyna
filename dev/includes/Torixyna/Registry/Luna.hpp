@@ -12,7 +12,7 @@ https://learn.microsoft.com/fr-fr/windows/win32/sysinfo/registry-files
 
 // Faire la documentation de ce module 
 
-namespace Torixyna::Registre{
+namespace Torixyna::Registry{
 
     struct RegistrySizeInfo{
         DWORD maxSize = 0;    // Taille maximale du registre en Mo
@@ -20,78 +20,80 @@ namespace Torixyna::Registre{
     };
 
     struct RegistryValueInfo{
-        bool status; // si il et à true tout ses bien passé aucune error
         DWORD valueNameT; // valeur si ses un REG_SZ ou autre...
     };
 
-    class Luna{
+    class LunaBase{
         public:
-            Luna(HKEY RootKey);  // Constructeur par défaut
+            explicit LunaBase(HKEY rootKey) : m_RootKey(rootKey) {}
+            virtual ~LunaBase() = default;
+    
+        protected:
+            HKEY m_RootKey; // Stocke la clé racine (ex: HKEY_CURRENT_USER)
+    };
 
-            // Ajout une clé de registre REG_SZ (return true si tout ses bien passé)
+    class Luna : public LunaBase{
+        public:
+            explicit Luna(HKEY rootKey) : LunaBase(rootKey) {}
+
+            // Adding a registry key REG_SZ (return true if everything went well)
             bool Write(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value);
 
-            // Ajout une clé de registre dword (return true si tout ses bien passé)
+            // Adding a registry key dword (return true if everything went well)
             bool Write(const wchar_t * Register, const WCHAR * NameKey, DWORD Value);
 
-            // Ajoute une clé de registre BINARY (return true si tout ses bien passé)
+            // AAdding a registry key BINARY (return true if everything went well)
             bool Write(const wchar_t * Register, const WCHAR * NameKey, const BYTE* BinaryData);
 
-            // Ajout une clé de registre Qword (return true si tout ses bien passé)
+            // Adding a registry key Qword (return true if everything went well)
             bool Write(const wchar_t * Register, const WCHAR * NameKey, unsigned __int64 value);
 
-            // à tester  : 
-
-            // Ajout une clé de registre REG_MULTI_SZ (return true si tout ses bien passé)
+            // Adding a registry key REG_MULTI_SZ (return true if everything went well)
             bool Write(const std::wstring& Register, const std::wstring& NameKey, const std::vector<std::wstring>& values);
 
-            // Ajout une clé de registre REG_EXPAND_SZ (return true si tout ses bien passé)
+            // Adding a registry key REG_EXPAND_SZ (return true if everything went well)
             bool Write(const std::wstring& Register, const std::wstring& NameKey, const std::wstring& value);
 
-            // -----------------------------------------------------------
 
-            // Lecture du type DWORD (Return true si tout ses bien passé)
+            // Type reading (return true if everything went well)
             bool Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result);
 
-            // Lecture du type QWORD (Return true si tout ses bien passé)
+            // Type reading (return true if everything went well)
             bool Read(const wchar_t* registerPath, const wchar_t* nameKey, ULONGLONG& result);
 
-            // Lecture du type REG_SZ (Return true si tout ses bien passé)
+            // Type reading REG_SZ (return true if everything went well)
             bool Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& result);
 
-            // à tester 
-
-            // Lecture du type BINARY (Return true si tout ses bien passé)
-            // Problème affiche pas les bon truc regarder ce qu'il ne va pas dans le code 
+            // Type reading BINARY (return true if everything went well)
             bool Read(const std::wstring& registerPath, const std::wstring& nameKey, std::vector<BYTE>& data);
 
-            // Lecture du type REG_MULTI_SZ (Return true si tout ses bien passé)
+            // Type reading REG_MULTI_SZ (return true if everything went well)
             bool Read(const std::wstring& registerPath, const std::wstring& nameKey, std::vector<std::wstring>& values);
 
-            // Lecture du type REG_EXPAND_SZ (Return true si tout ses bien passé)
+            // Type reading REG_EXPAND_SZ (return true if everything went well)
             bool Read(const std::wstring& registerPath, const std::wstring& nameKey, std::wstring& value);
             
-            // ---------------------------------------------------------
-            
-            // suprime une clé de registre (return true si tout ses bien passé)
+            // delete a registry key (return true if everything went well)
             bool Delete(const wchar_t * Register, const WCHAR * NameKey);
 
-            // à mettre dans une class LunaInfo :
-            // et Refactorer ces deux fonction ci-dessous  
-
-            // Retourn un struct qui contient la taille maximal que le registre peut stocker 
-            // et la taille actuelle que stock le registre (tout cela en Mo)
-            // à vérifier si elle marche bien 
-            RegistrySizeInfo GetSizeRegistry(RegistrySizeInfo& data);
-
-            // peut-être y mettre dans private cette fonction la pour que Read puisse l'utiliser 
-            // return la structure Rust cette fonction permet de savoir le type de valeur que stock une clé 
-            RegistryValueInfo GetRegisterTypeValue(const wchar_t * Register, const wchar_t* valueName, RegistryValueInfo& data);
-
-        private:
-            HKEY m_RootKey; // Stocke la clé racine (par ex. HKEY_CURRENT_USER)
-
     };
+
+    class LunaInfo : public LunaBase{
+        public:
+
+            explicit LunaInfo(HKEY rootKey) : LunaBase(rootKey) {}
+
+            // Return true si tout ses bien passé, stock dans la structure : RegistrySizeInfo 
+            // la taille que fait actuellement les registres et la taille maximal supporté par les registre
+            // les valeur retourner pas la structure sont convertie en MO
+            bool GetSizeRegistry(RegistrySizeInfo& data);
+
+            // Return true si tout ses bien passé, stock le type de la valeur dans la Structure RegistryValueInfo
+            // si le type de la valeur n'est pas trouver un code d'error -808 stocké a la place du type de la valeur 
+            bool GetRegisterTypeValue(const wchar_t * Register, const wchar_t* valueName, RegistryValueInfo& data);
+        
+    };
+
 
     class LunaConfig{
         public:
