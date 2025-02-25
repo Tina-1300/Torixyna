@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 
-/*
+/*s
 compilation :
 g++ -o test.exe test.cpp -lTorixyna -lole32 -lstdc++ -luuid & color
 */

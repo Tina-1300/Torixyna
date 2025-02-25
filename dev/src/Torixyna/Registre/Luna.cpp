@@ -78,6 +78,49 @@ namespace Torixyna::Registre{
         return true;
     };
 
+    bool Luna::Write(const std::wstring& Register, const std::wstring& NameKey, const std::vector<std::wstring>& values){
+        HKEY hKey;
+        LONG result = RegOpenKeyExW(m_RootKey, NameKey.c_str(), 0, KEY_SET_VALUE, &hKey);
+        
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        
+        std::vector<wchar_t> multiSzData;
+        for (const auto& value : values){
+            multiSzData.insert(multiSzData.end(), value.begin(), value.end());
+            multiSzData.push_back(L'\0'); // séparateur entre les chaines
+        }
+        multiSzData.push_back(L'\0');
+        
+        result = RegSetValueExW(hKey, NameKey.c_str(), 0, REG_MULTI_SZ, 
+                                reinterpret_cast<const BYTE*>(multiSzData.data()), 
+                                static_cast<DWORD>(multiSzData.size() * sizeof(wchar_t)));
+        RegCloseKey(hKey);
+        
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        
+        return true;
+    };
+
+    bool Luna::Write(const std::wstring& Register, const std::wstring& NameKey, const std::wstring& value){
+        HKEY hKey;
+        LONG result = RegOpenKeyExW(m_RootKey, Register.c_str(), 0, KEY_SET_VALUE, &hKey);
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        result = RegSetValueExW(hKey, NameKey.c_str(), 0, REG_EXPAND_SZ, reinterpret_cast<const BYTE*>(value.c_str()), static_cast<DWORD>((value.size() + 1) * sizeof(wchar_t)));
+        RegCloseKey(hKey);
+        
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        return true;
+    };
+
+
     // ---------------------- Read ---------------------------------
     
     bool Luna::Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result){
@@ -137,6 +180,85 @@ namespace Torixyna::Registre{
         delete[] buffer;
         RegCloseKey(hKey);
         return status == ERROR_SUCCESS;
+    };
+
+    bool Luna::Read(const std::wstring& registerPath, const std::wstring& nameKey, std::vector<BYTE>& data){
+        HKEY hKey;
+        LONG result = RegOpenKeyExW(m_RootKey, registerPath.c_str(), 0, KEY_QUERY_VALUE, &hKey);
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        DWORD dataSize = 0;
+        result = RegQueryValueExW(hKey, nameKey.c_str(), nullptr, nullptr, nullptr, &dataSize);
+        if (result != ERROR_SUCCESS || dataSize == 0){
+            RegCloseKey(hKey);
+            return false;
+        }
+        
+        data.resize(dataSize);
+        result = RegQueryValueExW(hKey, nameKey.c_str(), nullptr, nullptr, data.data(), &dataSize);
+        RegCloseKey(hKey);
+        
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        return true;
+    };
+
+    bool Luna::Read(const std::wstring& registerPath, const std::wstring& nameKey, std::vector<std::wstring>& values){
+
+        HKEY hKey;
+        LONG result = RegOpenKeyExW(m_RootKey, registerPath.c_str(), 0, KEY_QUERY_VALUE, &hKey);
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        
+        DWORD dataSize = 0;
+        result = RegQueryValueExW(hKey, nameKey.c_str(), nullptr, nullptr, nullptr, &dataSize);
+        if (result != ERROR_SUCCESS || dataSize == 0){
+            RegCloseKey(hKey);
+            return false;
+        }
+        
+        std::vector<wchar_t> buffer(dataSize / sizeof(wchar_t));
+        result = RegQueryValueExW(hKey, nameKey.c_str(), nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer.data()), &dataSize);
+        RegCloseKey(hKey);
+        
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        
+        values.clear();
+        wchar_t* ptr = buffer.data();
+        while (*ptr){
+            values.push_back(ptr);
+            ptr += wcslen(ptr) + 1;
+        }
+        return true;
+    };
+
+
+    bool Luna::Read(const std::wstring& registerPath, const std::wstring& nameKey, std::wstring& value){
+        HKEY hKey;
+        LONG result = RegOpenKeyExW(m_RootKey, registerPath.c_str(), 0, KEY_QUERY_VALUE, &hKey);
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        DWORD dataSize = 0;
+        result = RegQueryValueExW(hKey, nameKey.c_str(), nullptr, nullptr, nullptr, &dataSize);
+        if (result != ERROR_SUCCESS || dataSize == 0){
+            RegCloseKey(hKey);
+            return false;
+        }
+        std::vector<wchar_t> buffer(dataSize / sizeof(wchar_t));
+        result = RegQueryValueExW(hKey, nameKey.c_str(), nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer.data()), &dataSize);
+        RegCloseKey(hKey);
+        if (result != ERROR_SUCCESS){
+            return false;
+        }
+        value.assign(buffer.begin(), buffer.end());
+        return true;
+
     };
 
     //-----------------------------------------------------------------

@@ -1,33 +1,25 @@
 #pragma once
 #include <windows.h>
 #include <string>
+#include <vector>
 
 /*
 https://learn.microsoft.com/fr-fr/windows/win32/apiindex/windows-api-list
-
 https://learn.microsoft.com/fr-fr/windows/win32/sysinfo/registry-reference
 https://learn.microsoft.com/fr-fr/windows/win32/sysinfo/registry
-
 https://learn.microsoft.com/fr-fr/windows/win32/sysinfo/registry-files
-
-
-Refactore le code : 
-https://fr.wikipedia.org/wiki/SOLID_(informatique)
 */
-/*
-Refactor du code à faire 
 
-
-*/
+// Faire la documentation de ce module 
 
 namespace Torixyna::Registre{
 
-    struct RegistrySizeInfo {
+    struct RegistrySizeInfo{
         DWORD maxSize = 0;    // Taille maximale du registre en Mo
         DWORD currentSize = 0; // Taille actuelle du registre en Mo
     };
 
-    struct RegistryValueInfo {
+    struct RegistryValueInfo{
         bool status; // si il et à true tout ses bien passé aucune error
         DWORD valueNameT; // valeur si ses un REG_SZ ou autre...
     };
@@ -36,12 +28,6 @@ namespace Torixyna::Registre{
         public:
             Luna(HKEY RootKey);  // Constructeur par défaut
 
-            /*
-            Write 
-            Read
-            Delete
-            Update
-            */
             // Ajout une clé de registre REG_SZ (return true si tout ses bien passé)
             bool Write(const wchar_t * Register, const WCHAR * NameKey, const WCHAR * Value);
 
@@ -54,8 +40,15 @@ namespace Torixyna::Registre{
             // Ajout une clé de registre Qword (return true si tout ses bien passé)
             bool Write(const wchar_t * Register, const WCHAR * NameKey, unsigned __int64 value);
 
-            //écrire une REG_MULTI_SZ et une REG_EXPAND_SZ
+            // à tester  : 
 
+            // Ajout une clé de registre REG_MULTI_SZ (return true si tout ses bien passé)
+            bool Write(const std::wstring& Register, const std::wstring& NameKey, const std::vector<std::wstring>& values);
+
+            // Ajout une clé de registre REG_EXPAND_SZ (return true si tout ses bien passé)
+            bool Write(const std::wstring& Register, const std::wstring& NameKey, const std::wstring& value);
+
+            // -----------------------------------------------------------
 
             // Lecture du type DWORD (Return true si tout ses bien passé)
             bool Read(const wchar_t* registerPath, const wchar_t* nameKey, DWORD& result);
@@ -65,14 +58,26 @@ namespace Torixyna::Registre{
 
             // Lecture du type REG_SZ (Return true si tout ses bien passé)
             bool Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& result);
+
+            // à tester 
+
+            // Lecture du type BINARY (Return true si tout ses bien passé)
+            // Problème affiche pas les bon truc regarder ce qu'il ne va pas dans le code 
+            bool Read(const std::wstring& registerPath, const std::wstring& nameKey, std::vector<BYTE>& data);
+
+            // Lecture du type REG_MULTI_SZ (Return true si tout ses bien passé)
+            bool Read(const std::wstring& registerPath, const std::wstring& nameKey, std::vector<std::wstring>& values);
+
+            // Lecture du type REG_EXPAND_SZ (Return true si tout ses bien passé)
+            bool Read(const std::wstring& registerPath, const std::wstring& nameKey, std::wstring& value);
             
-            // Lire Binary et REG_MULTI_SZ et REG_EXPAND_SZ
-
-
-            // Update de Binary, REG_MULTI_SZ, REG_EXPAND_SZ, QWORD, DWORD, REG_SZ,
+            // ---------------------------------------------------------
             
             // suprime une clé de registre (return true si tout ses bien passé)
             bool Delete(const wchar_t * Register, const WCHAR * NameKey);
+
+            // à mettre dans une class LunaInfo :
+            // et Refactorer ces deux fonction ci-dessous  
 
             // Retourn un struct qui contient la taille maximal que le registre peut stocker 
             // et la taille actuelle que stock le registre (tout cela en Mo)
@@ -122,8 +127,6 @@ namespace Torixyna::Registre{
             It returns false if there is an error and true if everything goes well.
             */
             static bool SetWallpaper(const std::wstring& imagePath);
-
-
 
     };
 
