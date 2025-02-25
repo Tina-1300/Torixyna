@@ -1,6 +1,3 @@
-dev/.bat 
+dev/a.bat 
 build.txt
 liste-des-branches.txt
-dev/test/main.exe
-dev/test/python.hpp
-dev/test/testf.cpp
