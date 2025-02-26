@@ -21,7 +21,7 @@ markdown_extensions:
 
 use_directory_urls: true
 
-#mettre a false pour executer :  mkdocs build
+# mettre a false pour executer :  mkdocs build
 # pour lancer le server sur une ip et un port spécifique : mkdocs serve --dev-addr 192.168.1.188:8000
 
 #pip install mkdocs-windmill-dark

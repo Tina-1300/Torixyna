@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Torixyna - Torixyna</title>
+    <title>Torixyna::Registry Module - Torixyna</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Torixyna";
-        var mkdocs_page_input_path = "Torixyna\\1.0.0\\Torixyna.md";
+        var mkdocs_page_name = "Torixyna::Registry Module";
+        var mkdocs_page_input_path = "Torixyna\\Registry\\description.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -47,39 +47,25 @@
               </ul>
               <p class="caption"><span class="caption-text">Torixyna</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" >1.0.0</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Torixyna.html">Torixyna</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Registry</a>
     <ul class="current">
-                <li class="toctree-l2 current"><a class="reference internal current" href="#">Torixyna</a>
+                <li class="toctree-l2"><a class="reference internal" href="Registry.html">Registry Module</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Torixyna::Registry Module</a>
     <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#1-privilege-management">1. Privilege Management</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#link-to-the-documentation">Link to the Documentation</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-speaker-management">2. Speaker Management</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#link-to-the-documentation_1">Link to the Documentation</a>
-    </li>
-        </ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features:</a>
     </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" >Privileges</a>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Speaker</a>
     <ul>
-                <li class="toctree-l3"><a class="reference internal" href="Privileges/index.html">Index</a>
+                <li class="toctree-l2"><a class="reference internal" href="../Speaker/Speaker.html">Speaker Module</a>
                 </li>
-                <li class="toctree-l3"><a class="reference internal" href="Privileges/PrivilegesManager.html">PrivilegesManager</a>
-                </li>
-    </ul>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" >Speaker</a>
-    <ul>
-                <li class="toctree-l3"><a class="reference internal" href="Speaker/index.html">Index</a>
-                </li>
-                <li class="toctree-l3"><a class="reference internal" href="Speaker/Speaker.html">Speaker Module</a>
-                </li>
-    </ul>
+                <li class="toctree-l2"><a class="reference internal" href="../Speaker/description.html">Windows Speaker Management Module</a>
                 </li>
     </ul>
                   </li>
@@ -99,8 +85,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html" class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Torixyna</li>
-          <li class="breadcrumb-item">1.0.0</li>
-      <li class="breadcrumb-item active">Torixyna</li>
+          <li class="breadcrumb-item">Registry</li>
+      <li class="breadcrumb-item active">Torixyna::Registry Module</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -109,50 +95,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="torixyna-modules">Torixyna Modules</h2>
-<hr />
-<h3 id="1-privilege-management">1. Privilege Management</h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Elevating privileges is not fully functional yet and may cause bugs.
-documentation not finished in maintenance</p>
-</div>
-<p>privileges management module</p>
-<h5 id="link-to-the-documentation">Link to the Documentation</h5>
+                <h1 id="torixynaregistry-module">Torixyna::Registry Module</h1>
+<p>The <code>Torixyna::Registry</code> module provides a set of utilities for interacting with the Windows Registry. It allows developers to easily read, write, and manage registry keys and values, including various data types such as strings, DWORDs, binary data, and more. This module is designed to simplify registry operations and provide efficient access to registry-related tasks in Windows-based applications.</p>
+<h2 id="key-features">Key Features:</h2>
 <ul>
-<li><a href="Privileges/index.html">Privileges</a></li>
+<li><strong>Registry Management</strong>: </li>
+<li>
+<p>Write, read, and delete registry keys and values in different data formats such as <code>REG_SZ</code>, <code>REG_DWORD</code>, <code>REG_BINARY</code>, <code>REG_QWORD</code>, <code>REG_MULTI_SZ</code>, and <code>REG_EXPAND_SZ</code>.</p>
+</li>
+<li>
+<p><strong>Registry Size Info</strong>: </p>
+</li>
+<li>
+<p>Retrieve the current size of the registry and the maximum allowed size.</p>
+</li>
+<li>
+<p><strong>Registry Value Type Info</strong>: </p>
+</li>
+<li>
+<p>Get the type of a registry value and handle errors related to unknown value types.</p>
+</li>
+<li>
+<p><strong>System Configuration</strong>: </p>
+</li>
+<li>Manage system settings such as file extension visibility, hidden items visibility, checkbox status, and even set the system wallpaper.</li>
 </ul>
-<hr />
-<h3 id="2-speaker-management">2. Speaker Management</h3>
-<p>speaker management module </p>
-<h5 id="link-to-the-documentation_1">Link to the Documentation</h5>
-<ul>
-<li><a href="Speaker/index.html">Speaker</a></li>
-</ul>
-<!-- 
-
-> [!NOTE]
-> Useful information that users should know, even when skimming content.
-
-> [!TIP]
-> Helpful advice for doing things better or more easily.
-
-> [!IMPORTANT]
-> Key information users need to know to achieve their goal.
-
-> [!WARNING]
-> Urgent info that needs immediate user attention to avoid problems.
-
-> [!CAUTION]
-> Advises about risks or negative outcomes of certain actions.
-
--->
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../index.html" class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="Privileges/index.html" class="btn btn-neutral float-right" title="Index">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="Registry.html" class="btn btn-neutral float-left" title="Registry Module"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Speaker/Speaker.html" class="btn btn-neutral float-right" title="Speaker Module">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -175,10 +148,10 @@ documentation not finished in maintenance</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="Registry.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="Privileges/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Speaker/Speaker.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

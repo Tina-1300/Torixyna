@@ -63,7 +63,6 @@ bool Read(const wchar_t* registerPath, const wchar_t* nameKey, std::wstring& res
     return status == ERROR_SUCCESS;
 };
 
-// Lecture d'un Bynary
 
 
 

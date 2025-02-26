@@ -18,7 +18,7 @@ The **Speaker** module allows you to manage the PC volume simply and efficiently
 To use the **Speaker** module, you must compile your program with the following options:
 
 ````bash
-g++ -o test.exe test.cpp -lTorixyna -lole32 -lstdc++ -luuid & color
+g++ -O2 -Os -s -o test.exe test.cpp -lTorixyna -lole32 -lstdc++ -luuid & color
 ````
 
 ---

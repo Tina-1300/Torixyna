@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Registry Module - Torixyna</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Registry Module";
+        var mkdocs_page_input_path = "Torixyna\\Registry\\Registry.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../index.html" class="icon icon-home"> Torixyna
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Torixyna</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Torixyna.html">Torixyna</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Registry</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Registry Module</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#features">Features</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compilation">Compilation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#les-structures">Les Structures :</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="description.html">Torixyna::Registry Module</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Speaker</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../Speaker/Speaker.html">Speaker Module</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Speaker/description.html">Windows Speaker Management Module</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Torixyna</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Torixyna</li>
+          <li class="breadcrumb-item">Registry</li>
+      <li class="breadcrumb-item active">Registry Module</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="registry-module">Registry Module</h1>
+<h3 id="features">Features</h3>
+<ul>
+<li>Read, write, and delete registry keys, with support for all data types.</li>
+<li>Retrieve information about registry keys, including the value types stored and both the current and maximum size the registry can hold.</li>
+<li>Modify parameters such as changing the desktop background, enabling or disabling file extensions, and more.</li>
+</ul>
+<hr />
+<h2 id="compilation">Compilation</h2>
+<p>To use the <strong>Registry</strong> module, you must compile your program with the following options:</p>
+<pre><code class="language-bash">g++ -Oz -O2 -Os -s -o test.exe test.cpp -lTorixyna &amp; color
+</code></pre>
+<h2 id="les-structures">Les Structures :</h2>
+<ul>
+<li>
+<p>RegistrySizeInfo : A structure that stores the current size and maximum size of the registry.</p>
+</li>
+<li>
+<p>RegistryValueInfo : A structure that stores the type of the registry key (e.g., REG_SZ, REG_DWORD, etc.).</p>
+</li>
+</ul>
+<p><br></p>
+<h1 id="class-luna">Class Luna :</h1>
+<hr />
+<p><br></p>
+<h3 id="method-write">Method : <code>Write()</code></h3>
+<p><strong>Description</strong> :<br />
+Overloaded method for writing to the registry.</p>
+<h4 id="settings">Settings :</h4>
+<ul>
+<li><code>params1</code> : The path to the registry key.</li>
+<li><code>params2</code> : The name of the registry key that holds the value.</li>
+<li><code>params3</code> : The value to be stored in the registry.</li>
+</ul>
+<h4 id="returned-value">Returned value :</h4>
+<ul>
+<li><code>bool</code> : Returns <code>true</code> if the operation was successful.</li>
+</ul>
+<h4 id="example-of-use">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
+
+    // ---------------------------- Write DWORD value in the registry ----------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;testDWORD&quot;;
+    DWORD value = 12345;
+
+    if(luna.Write(registryPath, keyName, value) == true){
+        std::cout &lt;&lt; &quot;Value successfully written&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }else{
+        std::cerr &lt;&lt; &quot;Failed to write value.&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }
+    //-------------------------------------------------------------------------------------
+
+    // ------------------------- Write REG_SZ value in the registry -------------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;testString&quot;;
+    const wchar_t* value = L&quot;Alex&quot;;
+
+    if(luna.Write(registryPath, keyName, value) == true){
+        std::cout &lt;&lt; &quot;Value successfully written&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }else{
+        std::cerr &lt;&lt; &quot;Failed to write value.&quot; &lt;&lt; &quot;\n&quot;; 
+        std::cin.get();
+    }
+    // -----------------------------------------------------------------------------------
+
+    // ------------------------- Write BINARY value in the registry ----------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;testBinary&quot;;
+    BYTE value[] = { 0x01, 0x02, 0x03, 0x04 };
+
+    if(luna.Write(registryPath, keyName, value) == true){
+        std::cout &lt;&lt; &quot;Value successfully written&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }else{
+        std::cerr &lt;&lt; &quot;Failed to write value.&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }
+    // ------------------------------------------------------------------------------------
+
+    // ------------------------ Write QWORD value in the registry -------------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;testQword&quot;;
+    unsigned __int64 value = 1234567890123456;
+
+    if(luna.Write(registryPath, keyName, value) == true){
+        std::cout &lt;&lt; &quot;Value successfully written&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }else{
+        std::cerr &lt;&lt; &quot;Failed to write value.&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }
+    // -----------------------------------------------------------------------------------
+
+    // -------------------- Write REG_MULTI_SZ value in the registry ---------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;MaValeurMultiSZ&quot;;
+    std::vector&lt;std::wstring&gt; values = {L&quot;Valeur1&quot;, L&quot;Valeur2&quot;, L&quot;Valeur3&quot;};
+
+    if (luna.Write( registryPath, keyName, values) == true){
+        std::cout &lt;&lt; &quot;Value successfully written&quot; &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Failed to write value.&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // -------------------------------------------------------------------------------------
+
+    // ------------------- Write REG_EXPAND_SZ value in the registry -----------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;MaValeurExpandSZ&quot;;
+    if (luna.Write(registryPath, keyName, L&quot;%SystemRoot%\\System32&quot;) == true){
+        std::cout &lt;&lt; &quot;Value successfully written&quot; &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Failed to write value.&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // -------------------------------------------------------------------------------------
+
+
+    return 0;
+};
+</code></pre>
+<h2 id="_1"><br></h2>
+<p><br></p>
+<h3 id="method-read">Method : <code>Read()</code></h3>
+<p><strong>Description</strong> :<br />
+Reads the content of a registry key. This method is overloaded.</p>
+<h4 id="settings_1">Settings :</h4>
+<ul>
+<li><code>params1</code> : The path to the registry key.</li>
+<li><code>params2</code> : The name of the registry key holding the value.</li>
+<li><code>params3</code> : A variable to store the value read.</li>
+</ul>
+<h4 id="returned-value_1">Returned value :</h4>
+<ul>
+<li><code>bool</code> : Returns <code>true</code> if the operation was successful.</li>
+</ul>
+<h4 id="example-of-use_1">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER); 
+
+    // ------------------------ Read BINARY value -------------------------------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;test&quot;;
+
+    std::vector&lt;BYTE&gt; binaryData;
+    if (luna.Read(registryPath, keyName, binaryData)){
+        std::wcout &lt;&lt; L&quot;Binary value read : &quot;;
+        for (size_t i = 0; i &lt; binaryData.size(); i++){
+            std::wcout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::setfill(L'0') &lt;&lt; (int)binaryData[i] &lt;&lt; L&quot; &quot;;
+        }
+        std::wcout &lt;&lt; std::endl;
+    }else{
+        std::cout &lt;&lt; &quot;Failed to read binary value.&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    //----------------------------------------------------------------------------------------
+
+    //------------------------------ Read REG_MULTI_SZ ---------------------------------------
+    std::vector&lt;std::wstring&gt; values;
+    if (luna.Read(L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;, L&quot;MaValeurMultiSZ&quot;, values)){
+        std::wcout &lt;&lt; L&quot;Valeur REG_MULTI_SZ lue avec succès :\n&quot;;
+        for (const auto&amp; val : values){
+            std::wcout &lt;&lt; L&quot; - &quot; &lt;&lt; val &lt;&lt; &quot;\n&quot;;
+        }
+    }else{
+        std::wcout &lt;&lt; L&quot;Failed to read REG_MULTI_SZ value.&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // -----------------------------------------------------------------------------------------
+
+    //------------------------------ Read REG_EXPAND_SZ -----------------------------------------
+    std::wstring value;
+
+    if (luna.Read(L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;, L&quot;MaValeurExpandSZ&quot;, value)){
+        std::wcout &lt;&lt; L&quot;Valeur REG_EXPAND_SZ value read : &quot; &lt;&lt; value &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Failed to read REG_EXPAND_SZ value&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // -------------------------------------------------------------------------------------------
+
+    // ----------------------------- Read REG_SZ -------------------------------------------------
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;OneDrive&quot;;
+    std::wstring value;
+    if (Read(registryPath, keyName, value)){
+        std::wcout &lt;&lt; L&quot;wstring Value : &quot; &lt;&lt; value &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::wcout &lt;&lt; L&quot;ERROR&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // -------------------------------------------------------------------------------------------
+
+    //--------------------------------- Read DWORD ------------------------------------------------
+    DWORD value;
+    if(luna.Read(L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;, L&quot;testDWORD&quot;, value) == true){
+        std::cout &lt;&lt; &quot;The value is : &quot; &lt;&lt; value &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // --------------------------------------------------------------------------------------------
+
+    // ---------------------------------- Read QWORD ----------------------------------------------
+    unsigned __int64 val;
+    if(luna.Read(L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;, L&quot;testQword&quot;, val) == true){
+        std::cout &lt;&lt; &quot;The value is : &quot; &lt;&lt; val &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+    // ---------------------------------------------------------------------------------------------
+
+
+    return 0;
+}
+</code></pre>
+<h2 id="_2"><br></h2>
+<p><br></p>
+<h3 id="method-delete">Method : <code>Delete()</code></h3>
+<p><strong>Description</strong> :<br />
+Deletes a registry key.</p>
+<h4 id="settings_2">Settings :</h4>
+<ul>
+<li><code>const wchar_t * Register</code> :  The path to the registry key.</li>
+<li><code>const WCHAR * NameKey</code> : The name of the registry key to delete.</li>
+</ul>
+<h4 id="returned-value_2">Returned value :</h4>
+<ul>
+<li><code>bool</code> : Returns <code>true</code> if the operation was successful.</li>
+</ul>
+<h4 id="example-of-use_2">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
+
+    const wchar_t* registryPath = L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;;
+    const wchar_t* keyName = L&quot;test&quot;;
+
+    if(luna.Delete(registryPath, keyName) == true){
+        std::cout &lt;&lt; &quot;Key successfully deleted&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }else{
+        std::cerr &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+        std::cin.get();
+    }
+
+
+    return 0;
+}
+</code></pre>
+<p><br></p>
+<h1 id="class-lunainfo">Class LunaInfo :</h1>
+<h2 id="_3"><br></h2>
+<p><br></p>
+<h3 id="method-getsizeregistry">Method : <code>GetSizeRegistry()</code></h3>
+<p><strong>Description</strong> :<br />
+Retrieves the current size and maximum size of the registry, storing the values in the structure passed as a parameter in MB.</p>
+<h4 id="settings_3">Settings :</h4>
+<ul>
+<li><code>RegistrySizeInfo&amp; data</code> :  A structure holding the current and maximum size values.</li>
+</ul>
+<h4 id="returned-value_3">Returned value :</h4>
+<ul>
+<li><code>bool</code> : Returns <code>true</code> if the operation was successful.</li>
+</ul>
+<h4 id="example-of-use_3">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+    Torixyna::Registry::LunaInfo luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::RegistrySizeInfo info;
+
+    if(luna.GetSizeRegistry(info) == true){
+        std::cout &lt;&lt; &quot;Current size : &quot; &lt;&lt; info.currentSize &lt;&lt; &quot;\n&quot;;
+        std::cout &lt;&lt; &quot;Maximum size : &quot; &lt;&lt; info.maxSize &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="_4"><br></h2>
+<p><br></p>
+<h3 id="method-getregistertypevalue">Method : <code>GetRegisterTypeValue()</code></h3>
+<p><strong>Description</strong> :<br />
+Retrieves the type of value stored in a registry key (e.g., REG_SZ, REG_DWORD, REG_BINARY, REG_QWORD, REG_MULTI_SZ, REG_EXPAND_SZ, REG_NONE, REG_LINK).</p>
+<h4 id="settings_4">Settings :</h4>
+<ul>
+<li><code>const wchar_t * Register</code> : The path to the registry.</li>
+<li><code>const wchar_t* valueName</code> : The name of the key to check.</li>
+<li><code>RegistryValueInfo&amp; data</code> :  A structure that stores the type of value stored in the registry key.</li>
+</ul>
+<h4 id="returned-value_4">Returned value :</h4>
+<ul>
+<li><code>bool</code> : Returns <code>true</code> if the operation was successful.</li>
+</ul>
+<h4 id="example-of-use_4">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+    Torixyna::Registry::LunaInfo luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::RegistryValueInfo info;
+
+    if (luna.GetRegisterTypeValue(L&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;, L&quot;testQword&quot;, info) == true){
+
+        if(info.valueNameT == REG_QWORD){
+            std::cout &lt;&lt; &quot;The value is a QWORD&quot; &lt;&lt; &quot;\n&quot;;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<h1 id="class-lunaconfig">class LunaConfig :</h1>
+<h2 id="_5"><br></h2>
+<p><br></p>
+<h3 id="method-setsfileextensionsvisibility">Method : <code>SetsFileExtensionsVisibility()</code></h3>
+<p><strong>Description</strong> :<br />
+This method allows you to enable or disable the visibility of file extensions.
+If the parameter showExtensions is set to true, the file extensions are displayed.
+If the parameter is set to false, the file extensions are hidden.
+The method returns true if everything was successful.</p>
+<h4 id="settings_5">Settings :</h4>
+<ul>
+<li><code>bool showExtensions</code> : parameter showExtensions.</li>
+</ul>
+<h4 id="returned-value_5">Returned value :</h4>
+<ul>
+<li><code>bool</code> : The method returns <code>true</code> if everything was successful.</li>
+</ul>
+<h4 id="example-of-use_5">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::LunaConfig l;
+
+    if (l.SetsFileExtensionsVisibility(true)){
+        std::cout &lt;&lt; &quot;Les extension des fichier sont visible&quot; &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="_6"><br></h2>
+<p><br></p>
+<h3 id="method-setsshowitemshide">Method : <code>SetsShowItemsHide()</code></h3>
+<p><strong>Description</strong> :<br />
+Sets the visibility of hidden items. 
+If set to true, hidden items are displayed.
+If set to false, hidden items are not displayed.
+The method returns false if there is an error, and true if there is no error.</p>
+<h4 id="settings_6">Settings :</h4>
+<ul>
+<li><code>bool Status</code> : parameter Status.</li>
+</ul>
+<h4 id="returned-value_6">Returned value :</h4>
+<ul>
+<li><code>bool</code> : The method returns <code>false</code> if there is an error, and <code>true</code> if there is no error..</li>
+</ul>
+<h4 id="example-of-use_6">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::LunaConfig l;
+
+    if (l.SetsShowItemsHide(true)){
+        std::cout &lt;&lt; &quot;affiche les éléments masquer&quot; &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="_7"><br></h2>
+<p><br></p>
+<h3 id="method-setsthestatusofcheckboxes">Method : <code>SetsTheStatusOfCheckboxes()</code></h3>
+<p><strong>Description</strong> :<br />
+Sets the status of checkboxes.
+Activates checkboxes if the 'Status' parameter is set to true.
+Deactivates checkboxes if the 'Status' parameter is set to false.
+This method returns true if the operation is successful.</p>
+<h4 id="settings_7">Settings :</h4>
+<ul>
+<li><code>bool Status</code> : parameter Status.</li>
+</ul>
+<h4 id="returned-value_7">Returned value :</h4>
+<ul>
+<li><code>bool</code> : This method returns <code>true</code> if the operation is successful.</li>
+</ul>
+<h4 id="example-of-use_7">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::LunaConfig l;
+
+    if (l.SetsTheStatusOfCheckboxes(true)){
+        std::cout &lt;&lt; &quot;Les cases à coché sont activer&quot; &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="_8"><br></h2>
+<p><br></p>
+<h3 id="method-setwallpaper">Method : <code>SetWallpaper()</code></h3>
+<p><strong>Description</strong> :<br />
+Method to set the wallpaper
+This method takes the image path as a parameter.
+It returns false if there is an error and true if everything goes well.</p>
+<h4 id="settings_8">Settings :</h4>
+<ul>
+<li><code>const std::wstring&amp; imagePath</code> : Attend le chemin ver l'image.</li>
+</ul>
+<h4 id="returned-value_8">Returned value :</h4>
+<ul>
+<li><code>bool</code> : This method returns <code>true</code> if the operation is successful.</li>
+</ul>
+<h4 id="example-of-use_8">Example of use :</h4>
+<pre><code class="language-cpp">#define INCLUDE_REGISTRE
+#include &lt;iostream&gt;
+#include &lt;Torixyna/Torixyna.hpp&gt;
+
+int main(){
+    SetConsoleOutputCP(CP_UTF8);
+
+    Torixyna::Registry::LunaConfig l;
+    const wchar_t* pathWalpper = L&quot;Background.jpg&quot;;
+
+    if (l.SetWallpaper(pathWalpper)){
+        std::cout &lt;&lt; &quot;Le fond d'écran à bien été modifier&quot; &lt;&lt; &quot;\n&quot;;
+    }else{
+        std::cout &lt;&lt; &quot;Error&quot; &lt;&lt; &quot;\n&quot;;
+    }
+
+    return 0;
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Torixyna.html" class="btn btn-neutral float-left" title="Torixyna"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="description.html" class="btn btn-neutral float-right" title="Torixyna::Registry Module">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Torixyna.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="description.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -86,7 +86,7 @@ namespace Torixyna::Registry{
         std::vector<wchar_t> multiSzData;
         for (const auto& value : values){
             multiSzData.insert(multiSzData.end(), value.begin(), value.end());
-            multiSzData.push_back(L'\0'); // séparateur entre les chaines
+            multiSzData.push_back(L'\0'); // separator between string
         }
         multiSzData.push_back(L'\0');
         
@@ -116,7 +116,6 @@ namespace Torixyna::Registry{
         }
         return true;
     };
-
 
     // ---------------------- Read ---------------------------------
     
@@ -233,7 +232,6 @@ namespace Torixyna::Registry{
         }
         return true;
     };
-
 
     bool Luna::Read(const std::wstring& registerPath, const std::wstring& nameKey, std::wstring& value){
         HKEY hKey;
@@ -457,7 +455,6 @@ namespace Torixyna::Registry{
             return true;
         }
     };
-
     //------------------------------------------------------------------------------------------------
 
 };

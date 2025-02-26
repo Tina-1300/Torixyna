@@ -6,7 +6,7 @@
 // g++ -Os -s -o test.exe test.cpp -lTorixyna & color
 
 void TestWriteDwordRegistry(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
     const wchar_t* keyName = L"test";
     DWORD value = 12345;
@@ -21,7 +21,7 @@ void TestWriteDwordRegistry(){
 };
 
 void TestWriteStringRegistry(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
     const wchar_t* keyName = L"test";
     const wchar_t* value = L"Alex";
@@ -36,7 +36,7 @@ void TestWriteStringRegistry(){
 };
 
 void TestWriteBynaryRegistry(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
     const wchar_t* keyName = L"test";
     BYTE value[] = { 0x01, 0x02, 0x03, 0x04 };
@@ -51,7 +51,7 @@ void TestWriteBynaryRegistry(){
 };
 
 void TestWriteQword(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
     const wchar_t* keyName = L"test";
     unsigned __int64 value = 1234567890123456;
@@ -67,7 +67,7 @@ void TestWriteQword(){
 
 
 void TestWrite_REG_MULTI_SZ(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
 
     std::vector<std::wstring> values = {L"Valeur1", L"Valeur2", L"Valeur3"};
     if (luna.Write( L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 
@@ -79,7 +79,7 @@ void TestWrite_REG_MULTI_SZ(){
 };
 
 void TestWrite_REG_EXPAND_SZ(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
 
     if (luna.Write(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MaValeurExpandSZ", L"%SystemRoot%\\System32")){
         std::wcout << L"Valeur REG_EXPAND_SZ écrite avec succès !" << "\n";
@@ -94,7 +94,7 @@ void TestWrite_REG_EXPAND_SZ(){
 // Ajouter Read à la doc + delete 
 
 void TestDeleteRegistry(){
-     Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+     Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
      const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
      const wchar_t* keyName = L"test";
 
@@ -107,10 +107,13 @@ void TestDeleteRegistry(){
     }
 };
 
+// -------------------------------------------------------------------------------------
+
+
 // à tester : (tout marche) 
 
 void TestRead_BINARY(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
     const wchar_t* registryPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
     const wchar_t* keyName = L"test";
 
@@ -126,8 +129,11 @@ void TestRead_BINARY(){
     }
 };
 
+
+
+
 void TestRead_REG_MULTI_SZ(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
 
     std::vector<std::wstring> values;
     if (luna.Read(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MaValeurMultiSZ", values)){
@@ -140,8 +146,11 @@ void TestRead_REG_MULTI_SZ(){
     }
 };
 
+
+
+
 void TestRead_REG_EXPAND_SZ(){
-    Torixyna::Registre::Luna luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
 
     std::wstring value;
 
@@ -153,13 +162,112 @@ void TestRead_REG_EXPAND_SZ(){
 };
 
 
+void TestRead_DWORD(){
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
+    DWORD value;
+    if(luna.Read(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"testDWORD", value) == true){
+        std::cout << "La valeur est : " << value << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
+void TestRead_QDWORD(){
+    Torixyna::Registry::Luna luna(HKEY_CURRENT_USER);
+    unsigned __int64 val;
+    if(luna.Read(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"testQword", val) == true){
+        std::cout << "La valeur est : " << val << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
+
+void TEST_GET_INFO_TAILL(){
+    Torixyna::Registry::LunaInfo luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::RegistrySizeInfo info;
+    if(luna.GetSizeRegistry(info) == true){
+        std::cout << "Taille Actuelle : " << info.currentSize << "\n";
+        std::cout << "Taille Maximal : " << info.maxSize << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
+
+void Test_Get_value_type(){
+    Torixyna::Registry::LunaInfo luna(HKEY_CURRENT_USER);
+    Torixyna::Registry::RegistryValueInfo info;
+
+    if (luna.GetRegisterTypeValue(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"testQword", info) == true){
+        if(info.valueNameT == REG_QWORD){
+            std::cout << "La valeur et un QWORD" << "\n";
+        }
+    }
+
+}
+
+
+void test_activate_extension_file(){
+    Torixyna::Registry::LunaConfig l;
+    
+    if (l.SetsFileExtensionsVisibility(true)){
+        std::cout << "Les extension des fichier sont visible" << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
+
+void test_display_element_masquer(){
+
+    Torixyna::Registry::LunaConfig l;
+    
+    if (l.SetsShowItemsHide(true)){
+        std::cout << "affiche les éléments masquer" << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
+
+void test_activate_case_a_cocher(){
+
+    Torixyna::Registry::LunaConfig l;
+    
+    if (l.SetsTheStatusOfCheckboxes(true)){
+        std::cout << "Les cases à coché sont activer" << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
+void test_display_walper_screen(){
+
+    Torixyna::Registry::LunaConfig l;
+    const wchar_t* pathWalpper = L"Background.jpg";
+
+    if (l.SetWallpaper(pathWalpper)){
+        std::cout << "Les cases à coché sont activer" << "\n";
+    }else{
+        std::cout << "Error" << "\n";
+    }
+
+}
+
 
 int main(){
     SetConsoleOutputCP(CP_UTF8);
 
     //TestWriteBynaryRegistry();
 
-    TestRead_BINARY();
+    //TestRead_BINARY();
 
     //Ces fonction Marche :
 
